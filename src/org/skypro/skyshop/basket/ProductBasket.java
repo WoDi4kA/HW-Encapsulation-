@@ -1,5 +1,64 @@
 package org.skypro.skyshop.basket;
 
+import org.skypro.skyshop.product.Product;
+import java.awt.desktop.AppReopenedEvent;
+import java.util.Arrays;
+
 public class ProductBasket {
+    public Product[] array;
+    public ProductBasket() {
+        this.array = new Product[5];
+    }
+
+    public void addProductToBasket(Product product) {
+        for (int i = 0; i < this.array.length; i++) {
+            if (i == this.array.length) {
+                System.out.println("Корзина переполнена!!!");
+            } else if (array[i] == null) {
+                array[i] = product;
+                break;
+            }
+        }
+    }
+
+    public int wholeCostOfBasket() {
+        int countOfPrice = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != null) {
+                countOfPrice += array[i].getPriceOfProduct();
+            } else {
+                break;
+            }
+        }
+        return countOfPrice;
+    }
+
+    public void outOfBasket(ProductBasket basket) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != null) {
+                System.out.println(array[i].getNameOfProduct() + " : " + array[i].getPriceOfProduct());
+            } else {
+                break;
+            }
+        }
+        System.out.println("Итого : " + wholeCostOfBasket());
+    }
+
+    public boolean checkForName(String name) {
+        boolean flag = false;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != null && array[i].getNameOfProduct() == name) {
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    public void cleanBasket() {
+        for (int i = 0; i < array.length; i++) {
+            array[i] = null;
+        }
+        System.out.println(Arrays.toString(array));
+    }
 
 }
