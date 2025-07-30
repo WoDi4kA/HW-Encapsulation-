@@ -29,6 +29,10 @@ public class App {
         basket.addProductToBasket(chicken);
         basket.addProductToBasket(orange);
         basket.addProductToBasket(apple);
+        basket.addProductToBasket(cheese);
+        basket.addProductToBasket(cheese);
+        basket.addProductToBasket(cheese);
+
 
         basket.outOfBasket(basket);
 

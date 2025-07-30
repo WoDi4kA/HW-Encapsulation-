@@ -1,23 +1,25 @@
 package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
+
 import java.awt.desktop.AppReopenedEvent;
+import java.net.SocketTimeoutException;
 import java.util.Arrays;
 
 public class ProductBasket {
     public Product[] array;
+    private int productsCount = 0;
+
     public ProductBasket() {
         this.array = new Product[5];
     }
 
     public void addProductToBasket(Product product) {
-        for (int i = 0; i < this.array.length; i++) {
-            if (i == this.array.length) {
-                System.out.println("Корзина переполнена!!!");
-            } else if (array[i] == null) {
-                array[i] = product;
-                break;
-            }
+        if (this.productsCount > 4) {
+            System.out.print("Корзина переполнена!!!\n");
+        } else {
+            this.array[productsCount] = product;
+            this.productsCount+=1;
         }
     }
 
@@ -58,6 +60,7 @@ public class ProductBasket {
         for (int i = 0; i < array.length; i++) {
             array[i] = null;
         }
+        this.productsCount = 0;
         System.out.println(Arrays.toString(array));
     }
 
