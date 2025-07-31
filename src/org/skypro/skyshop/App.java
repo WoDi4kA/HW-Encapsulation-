@@ -19,7 +19,7 @@ public class App {
         basket.addProductToBasket(milk);
         basket.addProductToBasket(meat);
 
-        basket.outOfBasket(basket);
+        basket.printBasket();
 
         System.out.println(basket.checkForName("Молоко"));
         System.out.println(basket.checkForName("Виноград"));
@@ -34,7 +34,7 @@ public class App {
         basket.addProductToBasket(cheese);
 
 
-        basket.outOfBasket(basket);
+        basket.printBasket();
 
         System.out.println(basket.checkForName("Молоко"));
         System.out.println(basket.checkForName("Виноград"));

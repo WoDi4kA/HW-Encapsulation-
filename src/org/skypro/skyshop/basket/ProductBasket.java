@@ -7,7 +7,7 @@ import java.net.SocketTimeoutException;
 import java.util.Arrays;
 
 public class ProductBasket {
-    public Product[] array;
+    private Product[] array;
     private int productsCount = 0;
 
     public ProductBasket() {
@@ -15,11 +15,11 @@ public class ProductBasket {
     }
 
     public void addProductToBasket(Product product) {
-        if (this.productsCount > 4) {
+        if (this.productsCount > array.length - 1) {
             System.out.print("Корзина переполнена!!!\n");
         } else {
             this.array[productsCount] = product;
-            this.productsCount+=1;
+            this.productsCount += 1;
         }
     }
 
@@ -28,19 +28,15 @@ public class ProductBasket {
         for (int i = 0; i < array.length; i++) {
             if (array[i] != null) {
                 countOfPrice += array[i].getPriceOfProduct();
-            } else {
-                break;
             }
         }
         return countOfPrice;
     }
 
-    public void outOfBasket(ProductBasket basket) {
+    public void printBasket() {
         for (int i = 0; i < array.length; i++) {
             if (array[i] != null) {
                 System.out.println(array[i].getNameOfProduct() + " : " + array[i].getPriceOfProduct());
-            } else {
-                break;
             }
         }
         System.out.println("Итого : " + wholeCostOfBasket());
