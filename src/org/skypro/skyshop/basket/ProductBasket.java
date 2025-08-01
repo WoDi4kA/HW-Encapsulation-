@@ -45,7 +45,7 @@ public class ProductBasket {
     public boolean checkForName(String name) {
         boolean flag = false;
         for (int i = 0; i < array.length; i++) {
-            if (array[i] != null && array[i].getNameOfProduct() == name) {
+            if (array[i] != null && array[i].getNameOfProduct().equals(name)) {
                 flag = true;
             }
         }
