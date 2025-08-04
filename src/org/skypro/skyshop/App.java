@@ -1,18 +1,17 @@
 package org.skypro.skyshop;
-import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.product.ProductBasket;
 import org.skypro.skyshop.product.Product;
-
-import java.sql.SQLOutput;
+import org.skypro.skyshop.product.SimpleProduct;
 
 public class App {
 
     public static void main(String[] args) {
-        Product milk = new Product("Молоко", 89);
-        Product meat = new Product("Мясо", 359);
-        Product chicken = new Product("Курица", 419);
-        Product orange = new Product("Апельсин", 47);
-        Product apple = new Product("Яблоко", 38);
-        Product cheese = new Product("Сыр", 189);
+        Product milk = new SimpleProduct("Молоко", 89);
+        Product meat = new SimpleProduct("Мясо", 359);
+        Product chicken = new SimpleProduct("Курица", 419);
+        Product orange = new SimpleProduct("Апельсин", 47);
+        Product apple = new SimpleProduct("Яблоко", 38);
+        Product cheese = new SimpleProduct("Сыр", 189);
 
         ProductBasket basket = new ProductBasket();
 
@@ -40,6 +39,7 @@ public class App {
         System.out.println(basket.checkForName("Виноград"));
 
         basket.cleanBasket();
+
     }
 
 }

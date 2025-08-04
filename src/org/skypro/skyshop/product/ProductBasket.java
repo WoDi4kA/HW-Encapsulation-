@@ -1,9 +1,5 @@
-package org.skypro.skyshop.basket;
+package org.skypro.skyshop.product;
 
-import org.skypro.skyshop.product.Product;
-
-import java.awt.desktop.AppReopenedEvent;
-import java.net.SocketTimeoutException;
 import java.util.Arrays;
 
 public class ProductBasket {
@@ -36,7 +32,12 @@ public class ProductBasket {
     public void printBasket() {
         for (int i = 0; i < array.length; i++) {
             if (array[i] != null) {
-                System.out.println(array[i].getNameOfProduct() + " : " + array[i].getPriceOfProduct());
+                System.out.println(array[i].getNameOfProduct() + " : " + array[i].getPriceOfProduct() + " " +
+                        array[i].DiscountProduct.getNameOfProduct() + " : " + array[i].DiscountProduct.getPriceOfProduct() +
+                        " (" + "скидка" + ") " + array[i].DiscountProduct.discount + "% " +
+                        array[i].FixPriceProduct.getNameOfProduct() + " : " + array[i].FixPriceProduct.getPriceOfProduct() + " " +
+                        "Итого : " + wholeCostOfBasket() + " " +
+                        "Специальных товаров : ");
             }
         }
         System.out.println("Итого : " + wholeCostOfBasket());
