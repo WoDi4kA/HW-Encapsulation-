@@ -1,6 +1,7 @@
 package org.skypro.skyshop.product;
 
 import java.util.Arrays;
+import org.skypro.skyshop.product.DiscountedProduct;
 
 public class ProductBasket {
     private Product[] array;
@@ -29,18 +30,8 @@ public class ProductBasket {
         return countOfPrice;
     }
 
-    public void printBasket() {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] != null) {
-                System.out.println(array[i].getNameOfProduct() + " : " + array[i].getPriceOfProduct() + " " +
-                        array[i].DiscountProduct.getNameOfProduct() + " : " + array[i].DiscountProduct.getPriceOfProduct() +
-                        " (" + "скидка" + ") " + array[i].DiscountProduct.discount + "% " +
-                        array[i].FixPriceProduct.getNameOfProduct() + " : " + array[i].FixPriceProduct.getPriceOfProduct() + " " +
-                        "Итого : " + wholeCostOfBasket() + " " +
-                        "Специальных товаров : ");
-            }
-        }
-        System.out.println("Итого : " + wholeCostOfBasket());
+    public String toStringBasket() {
+        return "Итого:" + wholeCostOfBasket();
     }
 
     public boolean checkForName(String name) {

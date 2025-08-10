@@ -9,8 +9,16 @@ public class SimpleProduct extends Product{
         this.priceOfProduct = priceOfProduct;
     }
 
+    public String getNameOfProduct() {
+        return super.getNameOfProduct();
+    }
+
     public int getPriceOfProduct() {
         return priceOfProduct;
+    }
+
+    public String toStringSimple() {
+        return getNameOfProduct() + " : " + getPriceOfProduct();
     }
 
 }

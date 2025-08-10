@@ -18,10 +18,15 @@ public class DiscountedProduct extends Product {
     }
 
     public String getNameOfProduct() {
-        return nameOfProduct;
+        return super.getNameOfProduct();
     }
 
     public int getDiscount() {
         return  discount;
     }
+
+    public String toStringDiscount() {
+        return getNameOfProduct() + " : " + getPriceOfProduct() + " (" + getDiscount() + ")";
+    }
+
 }

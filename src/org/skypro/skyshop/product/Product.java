@@ -19,8 +19,11 @@ public abstract class Product {
     }
 
     public boolean isSpecial() {
-        int coontOfSpecial = 0;
         return true;
+    }
+
+    public String toStringSpecial() {
+        return "Специальных товаров: " + isSpecial();
     }
 
 }
