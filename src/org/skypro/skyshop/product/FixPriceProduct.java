@@ -18,8 +18,15 @@ public class FixPriceProduct extends Product {
         return super.getNameOfProduct();
     }
 
-    public String toStringFix() {
+    @Override
+    public String toString() {
+        super.toString();
         return getNameOfProduct() + " : Фиксированная цена " + getPriceOfProduct();
+    }
+
+    @Override
+    public boolean isSpecial() {
+        return true;
     }
 
 }

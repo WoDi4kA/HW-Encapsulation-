@@ -16,10 +16,7 @@ public class App {
         basket.addProductToBasket(meat);
         basket.addProductToBasket(orange);
 
-        System.out.println(milk.toStringSimple());
-        System.out.println(meat.toStringFix());
-        System.out.println(orange.toStringDiscount());
-        System.out.println(basket.toStringBasket());
+        basket.printBasket();
 
     }
 }

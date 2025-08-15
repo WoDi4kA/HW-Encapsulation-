@@ -17,8 +17,12 @@ public class SimpleProduct extends Product{
         return priceOfProduct;
     }
 
-    public String toStringSimple() {
+    public String toString() {
         return getNameOfProduct() + " : " + getPriceOfProduct();
+    }
+
+    public boolean isSpecial() {
+        return false;
     }
 
 }

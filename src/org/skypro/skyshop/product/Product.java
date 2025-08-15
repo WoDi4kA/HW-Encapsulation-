@@ -18,12 +18,5 @@ public abstract class Product {
         this.nameOfProduct = nameOfProduct;
     }
 
-    public boolean isSpecial() {
-        return true;
-    }
-
-    public String toStringSpecial() {
-        return "Специальных товаров: " + isSpecial();
-    }
-
+    public abstract boolean isSpecial();
 }

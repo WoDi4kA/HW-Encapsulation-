@@ -7,14 +7,13 @@ public class DiscountedProduct extends Product {
 
     public DiscountedProduct(String nameOfProduct, int basicPrice, int discount) {
         super(nameOfProduct);
-        this.basicPrice = getPriceOfProduct();
+        this.basicPrice = basicPrice;
         this.discount = discount;
-
     }
 
     @Override
     public int getPriceOfProduct() {
-        return basicPrice - discount;
+        return (basicPrice - discount);
     }
 
     public String getNameOfProduct() {
@@ -25,8 +24,15 @@ public class DiscountedProduct extends Product {
         return  discount;
     }
 
-    public String toStringDiscount() {
+    @Override
+    public String toString() {
+        super.toString();
         return getNameOfProduct() + " : " + getPriceOfProduct() + " (" + getDiscount() + ")";
+    }
+
+    @Override
+    public boolean isSpecial() {
+        return true;
     }
 
 }
