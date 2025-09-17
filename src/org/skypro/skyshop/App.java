@@ -1,4 +1,6 @@
 package org.skypro.skyshop;
+import org.skypro.skyshop.Search.Article;
+import org.skypro.skyshop.Search.SearchEngine;
 import org.skypro.skyshop.product.*;
 
 public class App {
@@ -18,5 +20,21 @@ public class App {
 
         basket.printBasket();
 
+        System.out.println();
+
+        SearchEngine smth = new SearchEngine(3);
+
+        Article article_first = new Article("Say Hello", "Hello my amigo!");
+        Article article_second = new Article("U should say hello", "Hello my friend!");
+        Article article_third = new Article("U must say hello", "Hello u god dammit!");
+
+        smth.add(article_first);
+        smth.add(article_second);
+        smth.add(article_third);
+
+        String[] results = smth.search("my");
+        for (int i = 0; i < results.length;i ++) {
+            System.out.println(results[i]);
+        }
     }
 }
