@@ -1,8 +1,8 @@
-package org.skypro.skyshop.product;
+package org.skypro.skyshop.Search;
 
 import org.skypro.skyshop.Search.Searchable;
 
-public abstract class Searchable_kid  implements Searchable {
+public abstract class Product  implements Searchable {
 
     @Override
     public String searchTerm() {
