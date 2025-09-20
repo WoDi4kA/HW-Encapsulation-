@@ -1,6 +1,6 @@
 package org.skypro.skyshop.product;
 
-public class DiscountedProduct extends Product {
+public abstract class DiscountedProduct extends Product {
 
     protected int basicPrice;
     protected int discount;

@@ -6,11 +6,36 @@ import org.skypro.skyshop.product.*;
 public class App {
 
     public static void main(String[] args) {
-        SimpleProduct milk = new SimpleProduct("Молоко", 89);
-        FixPriceProduct meat = new FixPriceProduct("Мясо", 359);
-        SimpleProduct chicken = new SimpleProduct("Курица", 419);
-        DiscountedProduct orange = new DiscountedProduct("Апельсин", 47, 15);
-        SimpleProduct apple = new SimpleProduct("Яблоко", 38);
+        SimpleProduct milk = new SimpleProduct("Молоко", 89) {
+            @Override
+            public String getName() {
+                return "";
+            }
+        };
+        FixPriceProduct meat = new FixPriceProduct("Мясо", 359) {
+            @Override
+            public String getName() {
+                return "";
+            }
+        };
+        SimpleProduct chicken = new SimpleProduct("Курица", 419) {
+            @Override
+            public String getName() {
+                return "";
+            }
+        };
+        DiscountedProduct orange = new DiscountedProduct("Апельсин", 47, 15) {
+            @Override
+            public String getName() {
+                return "";
+            }
+        };
+        SimpleProduct apple = new SimpleProduct("Яблоко", 38) {
+            @Override
+            public String getName() {
+                return "";
+            }
+        };
 
         ProductBasket basket = new ProductBasket();
 
