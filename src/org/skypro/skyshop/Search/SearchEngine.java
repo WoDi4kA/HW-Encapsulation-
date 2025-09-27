@@ -1,5 +1,7 @@
 package org.skypro.skyshop.Search;
 
+import org.skypro.skyshop.product.MatchNotFound;
+
 public class SearchEngine {
     private final Searchable[] searchableStuff;
     private int sizeOfMassive;
@@ -36,6 +38,12 @@ public class SearchEngine {
         } else {
             System.out.println("Массив полон, добавить нельзя!!!");
         }
+    }
+
+    public Searchable getCloserToSearch(String search) throws MatchNotFound {
+        return null;
+
+
     }
 
 }

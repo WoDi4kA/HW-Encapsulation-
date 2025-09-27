@@ -1,6 +1,6 @@
 package org.skypro.skyshop.product;
 
-public abstract class FixPriceProduct extends Product {
+public class FixPriceProduct extends Product {
 
     protected static int FIX_PRICE_OF_PRODUCT = 137;
 

@@ -4,9 +4,13 @@ public abstract class SimpleProduct extends Product{
 
     protected int priceOfProduct;
 
-    public SimpleProduct(String nameOfProduct, int priceOfProduct) {
+    public SimpleProduct(String nameOfProduct, int priceOfProduct) throws RuntimeException {
         super(nameOfProduct);
         this.priceOfProduct = priceOfProduct;
+
+        if (priceOfProduct < 1) {
+            throw new IllegalArgumentException("Неверная цена продукта");
+        }
     }
 
     public String getNameOfProduct() {
