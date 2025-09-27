@@ -1,7 +1,5 @@
 package org.skypro.skyshop.Search;
 
-import org.skypro.skyshop.product.MatchNotFound;
-
 public class SearchEngine {
     private final Searchable[] searchableStuff;
     private int sizeOfMassive;
@@ -12,7 +10,7 @@ public class SearchEngine {
     }
 
     public String[] search(String text) {
-        String[] result = new String[5];
+        String[] result = new String[sizeOfMassive];
         int count = 0;
 
         for (int i = 0; i < searchableStuff.length; i++) {
@@ -40,10 +38,40 @@ public class SearchEngine {
         }
     }
 
-    public Searchable getCloserToSearch(String search) throws MatchNotFound {
-        return null;
+    public Searchable getCloserToSearch(String search) throws BestResultNotFound {
 
+        if (search == null || search.isEmpty()) {
+            throw new BestResultNotFound();
+        }
 
-    }
+        Searchable closerSearch = null;
+        int maxCount = -1;
+
+        for (int i = 0; i < sizeOfMassive; i++) {
+            if (searchableStuff[i] != null) {
+                String searchTerm = searchableStuff[i].searchTerm().toLowerCase();
+                String searchLower = search.toLowerCase();
+                int count = 0;
+                int index = 0;
+
+                while ((index = searchTerm.indexOf(searchLower, index)) != -1) {
+                    count++;
+                    index += searchLower.length();
+                }
+
+                if (count > maxCount) {
+                    maxCount = count;
+                    closerSearch = searchableStuff[i];
+                }
+            }
+        }
+
+        if (closerSearch == null) {
+            throw new BestResultNotFound();
+        }
+
+        return closerSearch;
+        }
+
 
 }
