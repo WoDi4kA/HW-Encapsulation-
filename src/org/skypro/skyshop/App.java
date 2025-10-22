@@ -85,25 +85,35 @@ public class App {
         basket.printBasket();
 
         System.out.println();
+        System.out.println("Удаленный товар - " + basket.removeProductFromBasket(milk.getNameOfProduct()));
+        System.out.println();
+
+        System.out.println("Список пуст - " + basket.removeProductFromBasket(null));
+
+        System.out.println();
 
         SearchEngine smth = new SearchEngine(3);
 
-        Article article_first = new Article("Say Hello", "Hello my amigo!");
-        Article article_second = new Article("U should say hello", "Hello my friend!");
-        Article article_third = new Article("U must say hello", "Hello u god dammit!");
+        Article article_first = new Article("Book about Java", "Book");
+        Article article_second = new Article("Textbook about Java", "Textbook");
+        Article article_third = new Article("Article about Java", "Article");
+        Article article_fourth = new Article("Book about JavaScript", "Book");
+        Article article_fifth = new Article("Java for beginners", "Book");
 
         smth.add(article_first);
         smth.add(article_second);
         smth.add(article_third);
+        smth.add(article_fourth);
+        smth.add(article_first);
 
-        String[] results = smth.search("my");
+        String[] results = smth.search("Java");
         for (int i = 0; i < results.length;i ++) {
             System.out.println(results[i]);
         }
 
         System.out.println();
 
-        String textToMatch = "my";
+        String textToMatch = "Java";
         try {
             Searchable bestMatch = smth.getCloserToSearch(textToMatch);
             System.out.println("Ближайшее сходство для '" + textToMatch + "': " + bestMatch.searchTerm());

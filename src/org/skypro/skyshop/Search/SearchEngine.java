@@ -1,41 +1,38 @@
 package org.skypro.skyshop.Search;
 
+import java.util.ArrayList;
+
 public class SearchEngine {
-    private final Searchable[] searchableStuff;
-    private int sizeOfMassive;
+    private final ArrayList<Searchable> searchableStuff;
 
     public SearchEngine(int sizeOfMassive) {
-        searchableStuff = new Searchable[sizeOfMassive];
-        sizeOfMassive = 0;
+        searchableStuff = new ArrayList<>();
     }
 
     public String[] search(String text) {
-        String[] result = new String[sizeOfMassive];
+        ArrayList<String> result = new ArrayList<>();
         int count = 0;
 
-        for (int i = 0; i < searchableStuff.length; i++) {
-            if (text != null && searchableStuff[i].searchTerm().toLowerCase().contains(text.toLowerCase())) {
+        for (int i = 0; i < searchableStuff.size(); i++) {
+            Searchable searchable = searchableStuff.get(i);
+
+            if (text != null && searchable.searchTerm().toLowerCase().contains(text.toLowerCase())) {
                 if (count < 5) {
-                    result[count] = searchableStuff[i].searchTerm() + " (" + searchableStuff[i].getTypeOfContent() + ") ";
+                    result.add(searchable.searchTerm() + " (" + searchable.getTypeOfContent() + ") ");
                     count++;
                 } else {
                     break;
                 }
             }
         }
-        for (int i = count; i < result.length; i++) {
-            result[i] = null;
-        }
-        return result;
+        String[] resultArray = new String[result.size()];
+        resultArray = result.toArray(resultArray);
+
+        return resultArray;
     }
 
     public void add(Searchable text) {
-        if (sizeOfMassive < searchableStuff.length) {
-            searchableStuff[sizeOfMassive] = text;
-            sizeOfMassive++;
-        } else {
-            System.out.println("Массив полон, добавить нельзя!!!");
-        }
+        searchableStuff.add(text);
     }
 
     public Searchable getCloserToSearch(String search) throws BestResultNotFound {
@@ -47,9 +44,11 @@ public class SearchEngine {
         Searchable closerSearch = null;
         int maxCount = -1;
 
-        for (int i = 0; i < sizeOfMassive; i++) {
-            if (searchableStuff[i] != null) {
-                String searchTerm = searchableStuff[i].searchTerm().toLowerCase();
+        for (int i = 0; i < searchableStuff.size(); i++) {
+            Searchable searchable = searchableStuff.get(i);
+
+            if (searchable != null) {
+                String searchTerm = searchable.searchTerm().toLowerCase();
                 String searchLower = search.toLowerCase();
                 int count = 0;
                 int index = 0;
@@ -61,7 +60,7 @@ public class SearchEngine {
 
                 if (count > maxCount) {
                     maxCount = count;
-                    closerSearch = searchableStuff[i];
+                    closerSearch = searchable;
                 }
             }
         }
