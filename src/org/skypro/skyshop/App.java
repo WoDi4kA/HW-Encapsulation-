@@ -6,6 +6,7 @@ import org.skypro.skyshop.Search.Searchable;
 import org.skypro.skyshop.product.*;
 
 import javax.sound.midi.Soundbank;
+import java.util.Map;
 
 public class App {
 
@@ -106,9 +107,11 @@ public class App {
         smth.add(article_fourth);
         smth.add(article_first);
 
-        String[] results = smth.search("Java");
-        for (int i = 0; i < results.length;i ++) {
-            System.out.println(results[i]);
+        Map<String, Searchable> results = smth.search("Java");
+        for (Map.Entry<String, Searchable> entry : results.entrySet()) {
+            String key = entry.getKey();
+            Searchable value = entry.getValue();
+            System.out.println(value);
         }
 
         System.out.println();
