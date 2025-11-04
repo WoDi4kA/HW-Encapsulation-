@@ -1,22 +1,58 @@
 package org.skypro.skyshop.Search;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
+
+import java.util.*;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class SearchEngine {
-    private final ArrayList<Searchable> searchableStuff;
+    private final Set<Searchable> searchableStuff;
 
     public SearchEngine(int sizeOfMassive) {
-        searchableStuff = new ArrayList<>();
+        searchableStuff = new HashSet<>();
     }
 
-    public Map<String, Searchable> search(String text) {
-        Map<String, Searchable> result = new TreeMap<>();
+    private static final Comparator<Searchable> NAME_LENGTH_DESC_THEN_NATURAL =
+            (s1, s2) -> {
+                String n1 = safeName(s1);
+                String n2 = safeName(s2);
 
+                int len1 = n1.length();
+                int len2 = n2.length();
+
+                int compareLen = Integer.compare(len2, len1);
+                if (compareLen != 0) {
+                    return compareLen;
+                }
+                return n1.compareTo(n2);
+            };
+
+    private static String safeName(Searchable s) {
+        if (s == null) {
+            return null;
+        }
+
+        String name = s.getName();
+        return name == null ? "" : name;
+    }
+
+
+    public Set<Searchable> search(String text) {
+        Set<Searchable> result = new TreeSet<>(NAME_LENGTH_DESC_THEN_NATURAL);
+
+        if (text == null && text.isEmpty()) {
+            return result;
+        }
+
+        String searchLower = text.toLowerCase();
         for (Searchable searchable : searchableStuff) {
-            if (text != null && searchable.searchTerm().toLowerCase().contains(text.toLowerCase())) {
-                result.put(searchable.searchTerm(), searchable);
+            if (searchable == null) continue;
+            String searchTerm = searchable.searchTerm();
+            if (searchTerm != null && searchTerm.toLowerCase().contains(searchLower)) {
+                result.add(searchable);
             }
         }
         return result;
@@ -34,34 +70,31 @@ public class SearchEngine {
 
         Searchable closerSearch = null;
         int maxCount = -1;
+        String searchlower = search.toLowerCase();
 
-        for (int i = 0; i < searchableStuff.size(); i++) {
-            Searchable searchable = searchableStuff.get(i);
+        for (Searchable searchable : searchableStuff) {
+            if (searchable == null) continue;
+            String searchTerm = searchable.searchTerm();
+            if (searchTerm == null) continue;
 
-            if (searchable != null) {
-                String searchTerm = searchable.searchTerm().toLowerCase();
-                String searchLower = search.toLowerCase();
-                int count = 0;
-                int index = 0;
+            String termLower = searchTerm.toLowerCase();
+            int count = 0;
+            int index = 0;
 
-                while ((index = searchTerm.indexOf(searchLower, index)) != -1) {
-                    count++;
-                    index += searchLower.length();
-                }
+            while ((index = termLower.indexOf(searchlower, index)) != -1) {
+                count += 1;
+                index += searchlower.length();
+            }
 
-                if (count > maxCount) {
-                    maxCount = count;
-                    closerSearch = searchable;
-                }
+            if (count > maxCount) {
+                maxCount = count;
+                closerSearch = searchable;
             }
         }
-
         if (closerSearch == null) {
             throw new BestResultNotFound();
         }
 
         return closerSearch;
-        }
-
-
+    }
 }
