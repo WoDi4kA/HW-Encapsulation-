@@ -8,99 +8,108 @@ import org.skypro.skyshop.product.DiscountedProduct;
 import javax.imageio.metadata.IIOInvalidTreeException;
 
 public class ProductBasket {
-    private LinkedList<Product> array;
+    private Map<String, List<Product>> array;
     private int productsCount = 0;
 
     public ProductBasket() {
-        this.array = new LinkedList<>();
+        this.array = new HashMap<String, List<Product>>();
     }
 
     public void addProductToBasket(Product product) {
-        this.array.add(product);
-        this.productsCount += 1;
+        List<Product> products = array.get(product.getNameOfProduct());
 
+        if (products == null) {
+            products = new ArrayList<>();
+        }
+
+        products.add(product);
+
+        array.put(product.nameOfProduct, products);
+
+        this.productsCount += 1;
     }
 
     public List<Product> removeProductFromBasket(String name) {
-        List<Product> removedProducts = new ArrayList<>();
-        Iterator<Product> iterator = array.iterator();
+        List<Product> removedProducts = array.get(name);
 
-        while (iterator.hasNext()) {
-            Product product = iterator.next();
-            if (product != null && product.getNameOfProduct().equals(name)) {
-                removedProducts.add(product);
-                iterator.remove();
-                productsCount -= 1;
-            }
-            if (product.equals(null)) {
-                System.out.println("Список пуст");
-            }
+        if (removedProducts != null) {
+            productsCount = removedProducts.size();
+            array.remove(name);
+            return removedProducts;
         }
-        return removedProducts;
+
+        System.out.println("Товар с именем " + name + " не найден");
+        return new ArrayList<>();
     }
 
     public int wholeCostOfBasket() {
         int countOfPrice = 0;
-        for (int i = 0; i < array.size(); i++) {
-            Product product = array.get(i);
+        Collection<List<Product>> productsList = array.values();
+        List<List<Product>> listOfProductsList = new ArrayList<>(productsList);
 
-            if (product != null) {
+        for (int i = 0; i < listOfProductsList.size(); i++) {
+            List<Product> products = listOfProductsList.get(i);
+            for (int j = 0; j < products.size(); j++) {
+                Product product = products.get(j);
                 countOfPrice += product.getPriceOfProduct();
             }
         }
         return countOfPrice;
     }
+
     public int countOfSpecials() {
         int count = 0;
-        for (int i = 0; i < array.size(); i++) {
-            Product product = array.get(i);
+        Collection<List<Product>> productsList = array.values();
+        List<List<Product>> listOfProductsList = new ArrayList<>(productsList);
 
-            if (product != null) {
-                if (product.isSpecial() == true) {
-                    count += 1;
-                }
-            } else {
-                break;
+        for (int i = 0; i < listOfProductsList.size(); i++) {
+            List<Product> products = listOfProductsList.get(i);
+            for (int j = 0; j < products.size(); j++) {
+                Product product = products.get(j);
+                count += product.getPriceOfProduct();
             }
         }
         return count;
     }
-    public void printBasket() {
-        for (int i = 0; i < array.size(); i++) {
-            Product product = array.get(i);
 
-            if (product != null) {
-                System.out.println(product.toString());
-            } else {
-                break;
+    public void printBasket() {
+        if (array.isEmpty()) {
+            System.out.println("Корзина пуста");
+            return;
+        }
+        for (Map.Entry<String, List<Product>> entry : array.entrySet()) {
+            String productName = entry.getKey();
+            List<Product> products = entry.getValue();
+            System.out.println(productName + " (" + products.size() + " шт.)");
+
+            Collection<List<Product>> productsList = array.values();
+            List<List<Product>> listOfProductsList = new ArrayList<>(productsList);
+
+            for (int i = 0; i < listOfProductsList.size(); i++) {
+                System.out.println(products.toString());
             }
         }
-        System.out.println("Итого: " + wholeCostOfBasket());
-        System.out.println("Специальных товаров: " + countOfSpecials());
+        System.out.println("--------------------");
+        System.out.println("Общая стоимость: " + wholeCostOfBasket());
+        System.out.println("Спецаильных товаров: " + countOfSpecials());
+        System.out.println("Всего товаров: " + productsCount);
     }
 
     @Override
     public String toString() {
-        super.toString();
-        return "Итого:" + wholeCostOfBasket();
+        return "Корзина (товаров: " + productsCount + ", общая стоимость: " + wholeCostOfBasket() + " руб.)";
     }
 
     public boolean checkForName(String name) {
-        boolean flag = false;
-        for (int i = 0; i < array.size(); i++) {
-            Product product = array.get(i);
-
-            if (product != null && product.getNameOfProduct().equals(name)) {
-                flag = true;
-            }
-        }
-        return flag;
+        return array.containsKey(name);
     }
 
     public void cleanBasket() {
         array.clear();
         this.productsCount = 0;
-        System.out.println(array.toString());
+        System.out.println("Корзина пуста");
     }
+
+
 
 }
