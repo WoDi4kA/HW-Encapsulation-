@@ -7,6 +7,7 @@ import org.skypro.skyshop.product.*;
 
 import javax.sound.midi.Soundbank;
 import java.util.Map;
+import java.util.Set;
 
 public class App {
 
@@ -105,13 +106,11 @@ public class App {
         smth.add(article_second);
         smth.add(article_third);
         smth.add(article_fourth);
-        smth.add(article_first);
+        smth.add(article_fifth);
 
-        Map<String, Searchable> results = smth.search("Java");
-        for (Map.Entry<String, Searchable> entry : results.entrySet()) {
-            String key = entry.getKey();
-            Searchable value = entry.getValue();
-            System.out.println(value);
+        Set<Searchable> results = smth.search("Java");
+        for (Searchable value : results) {
+            System.out.println(value.getName() + " - (Type " + value.getTypeOfContent() + ")");
         }
 
         System.out.println();
@@ -124,16 +123,6 @@ public class App {
         } catch (BestResultNotFound e) {
             throw new BestResultNotFound();
         }
-
-        String textToException = "";
-        try {
-            Searchable bestMatch = smth.getCloserToSearch(textToException);
-            System.out.println("Ближайшее сходство для '" + textToException + "': " + bestMatch.searchTerm());
-            System.out.println("Тип: " + bestMatch.getTypeOfContent());
-        } catch (BestResultNotFound e) {
-            throw new BestResultNotFound("Нет ближайшего сходства");
-        }
-
 
     }
 
